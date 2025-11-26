@@ -1,6 +1,20 @@
 # Warsztaty z Dockera
 *docker-example* - prosta aplikacja do demonstracji konteneryzacji aplikacji i budowania obrazów
+
 *docker-multistage* - aplikacja do demonstracji multistage buildów
+
+## Komendy
+```sh
+docker run hello-world
+```
+
+```sh
+docker run nginx -p 80:80
+```
+
+```sh
+docker run nginx --network-type host
+```
 
 ## Komendy pomocniczne
 
