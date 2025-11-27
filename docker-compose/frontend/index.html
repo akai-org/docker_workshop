@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Workshop Chat</h2>
+  <input id="user" placeholder="Username" />
+  <input id="msg" placeholder="Message" />
+  <button onclick="send()">Send</button>
+  <ul id="list"></ul>
+  <script>
+    const API_URL = 'http://localhost:3000'; // Hitting localhost because browser runs on Host
+    async function refresh() {
+      const res = await fetch(`${API_URL}/messages`);
+      const data = await res.json();
+      document.getElementById('list').innerHTML = data.map(m => `<li><b>${m.user_name}:</b> ${m.content}</li>`).join('');
+    }
+    async function send() {
+      const user = document.getElementById('user').value;
+      const content = document.getElementById('msg').value;
+      await fetch(`${API_URL}/messages`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({user, content})
+      });
+      refresh();
+    }
+    setInterval(refresh, 2000);
+  </script>
+</body>
+</html>

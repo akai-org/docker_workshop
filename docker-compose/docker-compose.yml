@@ -1,0 +1,50 @@
+services:
+  # SERVICE 1: The Database
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=chat
+    volumes:
+      - pg-data:/var/lib/postgresql/data # Mount the named volume
+    networks:
+      - chat-net
+    # Define a healthcheck for the DB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"] # Docker runs this command inside the container
+      interval: 5s # Check every 5 seconds
+      timeout: 5s # Fail if it takes longer than 5s
+      retries: 5 # Mark as 'unhealthy' after 5 fails
+
+  # SERVICE 2: The API
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000" # Host Port : Container Port
+    environment:
+      - DB_HOST=db # Automatic Service Discovery! "db" matches the service name above
+      - DB_PASS=password
+      - DB_NAME=chat
+    depends_on:
+      - db # Wait for DB to start before starting backend
+    networks:
+      - chat-net
+
+  # SERVICE 3: The Web UI
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend/index.html:/usr/share/nginx/html/index.html:ro,Z
+    ports:
+      - "8080:80"
+    networks:
+      - chat-net
+
+# Define the shared infrastructure
+volumes:
+  pg-data:
+    # Docker manages this folder automatically
+
+networks:
+  chat-net:
+    # Docker creates a bridge network automatically
