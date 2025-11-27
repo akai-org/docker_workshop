@@ -11,11 +11,23 @@ docker run hello-world
 ```
 
 ```sh
-docker run nginx -p 80:80
+docker run -p 80:80 nginx
 ```
 
 ```sh
-docker run nginx --network-type host
+docker run --network=host nginx
+```
+
+```sh
+docker run -d \
+  --name mysql \
+  -p 3306:3306 \
+  -v mysql_data:/var/lib/mysql \
+  -e MYSQL_ROOT_PASSWORD=password \
+  -e MYSQL_DATABASE=db \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=password \
+  mysql:8.0
 ```
 
 ## Docker compose
