@@ -52,7 +52,7 @@ docker stats
 
 Test service discovery
 ```sh
-docker exec -it motivation-db-1 sh -c "ip a && ping -c 5 backend"
+docker exec -it docker-compose-db-1 sh -c "ip a && ping -c 5 backend"
 ```
 
 Zabicie projektu z compose
