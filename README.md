@@ -3,6 +3,8 @@
 
 *docker-multistage* - aplikacja do demonstracji multistage buildów
 
+*docker-compose* - prosty projekt docker compose i motywacja za narzędziem compose
+
 ## Komendy
 ```sh
 docker run hello-world
@@ -14,6 +16,53 @@ docker run nginx -p 80:80
 
 ```sh
 docker run nginx --network-type host
+```
+
+## Docker compose
+
+Należy wejść do sekcji docker compose
+```sh
+cd docker-compose
+```
+
+Przygotowanie plików:
+```sh
+chmod +x docker_compose_* 
+```
+
+Odpalenie projektu bez compose
+```sh
+./docker_compose_up.sh
+```
+
+Zabicie projektu bez compose
+```sh
+./docker_compose_down.sh
+```
+
+Odpalenie projektu z compose
+```sh
+docker compose up -d
+```
+
+Zobaczenie jak idzie naszemu projektowi
+```sh
+docker stats
+```
+
+Test service discovery
+```sh
+docker exec -it motivation-db-1 sh -c "ip a && ping -c 5 backend"
+```
+
+Zabicie projektu z compose
+```sh
+docker compose down
+```
+
+Doszczętne ubicie projektu (wraz z danymi)
+```sh
+docker compose down -v
 ```
 
 ## Komendy pomocniczne

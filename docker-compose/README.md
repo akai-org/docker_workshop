@@ -70,7 +70,4 @@ DB -.-> Vol[(Persistent Volume)]
 2. syntax relation between docker and compose 
 3. portainer visualization
 4. showcase networking dns. Get into a container and ping services 
-```sh
-docker exec -it motivation-backend-1 sh -c "ping db"
-```
 5. showcase volume persistance (kill all except volume and run again without replacing volume)
